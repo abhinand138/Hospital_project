@@ -1,0 +1,66 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold"><i class="bi bi-folder2-open me-2 text-info"></i>My Medical Records</h2>
+    <p class="text-secondary">Upload and manage your medical reports (PDFs and Images).</p>
+</div>
+
+<div class="row g-4">
+    <!-- Upload Form -->
+    <div class="col-lg-4">
+        <div class="glass-panel p-4 h-100">
+            <h5 class="fw-bold mb-4">Upload New Record</h5>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Description</label>
+                    <input type="text" name="description" class="form-control form-control-custom" placeholder="e.g. Blood Test Report" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label small fw-bold">File (PDF or Image)</label>
+                    <input type="file" name="file" class="form-control form-control-custom" required>
+                </div>
+                <button type="submit" class="btn btn-primary-custom w-100 py-2 fw-bold" style="background: var(--accent-color);">
+                    <i class="bi bi-cloud-arrow-up me-2"></i> Upload Record
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Records List -->
+    <div class="col-lg-8">
+        <div class="glass-panel p-4">
+            <h5 class="fw-bold mb-4">Past Records</h5>
+            <div class="table-responsive">
+                <table class="table table-custom table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Upload Date</th>
+                            <th>Description</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.date_uploaded|date:"M d, Y" }}</td>
+                            <td class="fw-bold">{{ record.description }}</td>
+                            <td class="text-end">
+                                <a href="{{ record.file.url }}" target="_blank" class="btn btn-sm btn-outline-info rounded-pill px-3">
+                                    <i class="bi bi-eye me-1"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-secondary py-4">No records found. Upload your first report!</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

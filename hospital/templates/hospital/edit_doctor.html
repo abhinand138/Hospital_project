@@ -1,0 +1,45 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="/doctors" class="text-decoration-none text-secondary mb-2 d-inline-block"><i class="bi bi-arrow-left me-1"></i> Back to Doctors</a>
+    <h2 class="fw-bold"><i class="bi bi-pencil-square me-2" style="color: var(--primary-color);"></i>Edit Doctor Details</h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 p-md-5">
+            <form method="POST" action="/edit_doctor/{{ doctor.id }}/">
+                {% csrf_token %}
+                
+                <div class="row g-4">
+                    <div class="col-md-12">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control form-control-custom" name="name" value="{{ doctor.name }}" required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label class="form-label">Specialization</label>
+                        <input type="text" class="form-control form-control-custom" name="specialization" value="{{ doctor.specialization }}" required>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control form-control-custom" name="phone" value="{{ doctor.phone }}" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control form-control-custom" name="email" value="{{ doctor.email }}" required>
+                    </div>
+
+                    <div class="col-12 mt-4 pt-3 border-top border-secondary border-opacity-25 text-end">
+                        <a href="/doctors" class="btn btn-link text-secondary text-decoration-none me-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary-custom px-5"><i class="bi bi-check-circle me-2"></i>Update Doctor</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

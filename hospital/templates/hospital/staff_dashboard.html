@@ -1,0 +1,100 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="fw-bold"><i class="bi bi-shield-lock me-2 text-info"></i>Staff Operations Hub</h2>
+        <p class="text-secondary mb-0">Logged in as: <span class="badge bg-info bg-opacity-10 text-info fw-bold">{{ role|upper }}</span></p>
+    </div>
+    <div class="text-end">
+        <p class="mb-0 fw-bold">{% firstof staff_info.name request.user.username %}</p>
+        <p class="text-secondary small mb-0">Employee ID: {{ staff_info.employee_id|default:"STF-000" }}</p>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <!-- Role Specific Actions -->
+    {% if role == 'nurse' %}
+    <div class="col-md-6">
+        <a href="/manage_beds/" class="text-decoration-none">
+            <div class="glass-panel p-4 h-100 hover-scale card-glow-info">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 rounded-circle bg-info bg-opacity-10 me-3">
+                        <i class="bi bi-door-open text-info fs-3"></i>
+                    </div>
+                    <h4 class="fw-bold mb-0 text-light">Ward Management</h4>
+                </div>
+                <p class="text-secondary mb-0">Track hospital occupancy, assign beds, and check patient admission status.</p>
+            </div>
+        </a>
+    </div>
+    {% endif %}
+
+    {% if role == 'pharmacist' %}
+    <div class="col-md-6">
+        <a href="/pharmacist_prescriptions/" class="text-decoration-none">
+            <div class="glass-panel p-4 h-100 hover-scale card-glow-warning">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 rounded-circle bg-warning bg-opacity-10 me-3">
+                        <i class="bi bi-capsule text-warning fs-3"></i>
+                    </div>
+                    <h4 class="fw-bold mb-0 text-light">Prescription Feed</h4>
+                </div>
+                <p class="text-secondary mb-0">View all digital prescriptions issued by doctors to dispense medications.</p>
+            </div>
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="col-md-6">
+        <a href="/notifications/" class="text-decoration-none">
+            <div class="glass-panel p-4 h-100 hover-scale">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="p-3 rounded-circle bg-primary bg-opacity-10 me-3">
+                        <i class="bi bi-bell text-primary fs-3"></i>
+                    </div>
+                    <h4 class="fw-bold mb-0 text-light">System Alerts</h4>
+                </div>
+                <p class="text-secondary mb-0">Check your personal notification feed for updates and announcements.</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h5 class="fw-bold mb-4"><i class="bi bi-clock-history me-2"></i>Recent Activity</h5>
+        <div class="glass-panel p-0 overflow-hidden">
+            {% for note in recent_notes %}
+            <div class="p-4 border-bottom border-secondary border-opacity-10">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0 text-light opacity-75">{{ note.message }}</p>
+                    <span class="text-secondary small ms-3">{{ note.created_at|timesince }} ago</span>
+                </div>
+            </div>
+            {% empty %}
+            <div class="p-5 text-center text-secondary">
+                No recent activity recorded.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+.hover-scale {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+.hover-scale:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+}
+.card-glow-info:hover {
+    box-shadow: 0 0 30px rgba(13, 202, 240, 0.1);
+}
+.card-glow-warning:hover {
+    box-shadow: 0 0 30px rgba(255, 193, 7, 0.1);
+}
+</style>
+{% endblock %}

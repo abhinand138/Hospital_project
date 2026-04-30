@@ -1,0 +1,112 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="fw-bold"><i class="bi bi-door-open me-2 text-info"></i>Bed Management</h2>
+        <p class="text-secondary">Track hospital occupancy and assign beds to patients.</p>
+    </div>
+    <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addBedModal">
+        <i class="bi bi-plus-lg me-2"></i> Add New Bed
+    </button>
+</div>
+
+<div class="row g-4">
+    {% for bed in beds %}
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="glass-panel p-4 h-100 text-center {% if bed.is_occupied %}border-start border-danger border-4{% else %}border-start border-success border-4{% endif %}">
+            <h1 class="mb-0 fw-bold">{{ bed.number }}</h1>
+            <p class="text-secondary small text-uppercase fw-bold mb-3">Bed Number</p>
+            
+            {% if bed.is_occupied %}
+                <div class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill mb-3">
+                    <i class="bi bi-person-fill-check me-1"></i> Occupied
+                </div>
+                <div class="mb-3">
+                    <span class="text-secondary small d-block">Patient</span>
+                    <span class="fw-bold text-light">{{ bed.patient.name }}</span>
+                </div>
+            {% else %}
+                <div class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill mb-4">
+                    <i class="bi bi-check-circle me-1"></i> Available
+                </div>
+            {% endif %}
+
+            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10">
+                <button class="btn btn-sm btn-outline-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#updateBedModal{{ bed.id }}">
+                    <i class="bi bi-pencil me-1"></i> Update
+                </button>
+                <a href="/delete_bed/{{ bed.id }}/" class="text-secondary small text-decoration-none hover-text-danger" 
+                   onclick="return confirm('Delete Bed #{{ bed.number }}?')">
+                    <i class="bi bi-trash me-1"></i> Delete
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Bed Modal -->
+    <div class="modal fade" id="updateBedModal{{ bed.id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-panel border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">Update Bed #{{ bed.number }}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="update_bed" value="1">
+                    <input type="hidden" name="bed_id" value="{{ bed.id }}">
+                    <div class="modal-body py-4">
+                        <label class="form-label fw-bold">Assign Patient (Leave empty to mark available)</label>
+                        <select class="form-select form-control-custom" name="patient">
+                            <option value="">-- No Patient / Clear Bed --</option>
+                            {% for patient in patients %}
+                                <option value="{{ patient.id }}" {% if bed.patient.id == patient.id %}selected{% endif %}>{{ patient.name }} (ID: {{ patient.id }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer border-0 pt-0">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary px-4">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Add Bed Modal -->
+<div class="modal fade" id="addBedModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-panel border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">Add New Bed</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="add_bed" value="1">
+                <div class="modal-body py-4">
+                    <label class="form-label fw-bold">Bed Number/Identifier</label>
+                    <input type="text" name="number" class="form-control form-control-custom" required placeholder="e.g. 101 or ICU-01">
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary px-4">Add Bed</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.hover-text-danger:hover {
+    color: var(--danger-color) !important;
+}
+.modal-content.glass-panel {
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: blur(20px);
+}
+</style>
+{% endblock %}

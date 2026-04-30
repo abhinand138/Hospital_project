@@ -1,0 +1,43 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold"><i class="bi bi-file-earmark-medical me-2 text-warning"></i>My Prescriptions</h2>
+    <p class="text-secondary">View instructions and medicine details from your doctors.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        {% for prescription in prescriptions %}
+        <div class="glass-panel p-4 mb-4 border-start border-warning border-4">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <h5 class="fw-bold mb-1">Prescription for {{ prescription.appointment.date }}</h5>
+                    <p class="text-secondary small mb-0">Issued by <span class="text-light">Dr. {{ prescription.doctor.name }}</span> on {{ prescription.date_created|date:"M d, Y" }}</p>
+                </div>
+                <div class="badge bg-secondary bg-opacity-25 text-secondary px-3 py-2 rounded-pill">
+                    <i class="bi bi-check2-all me-1"></i> Original
+                </div>
+            </div>
+            
+            <div class="bg-dark bg-opacity-25 p-4 rounded mt-3 border border-secondary border-opacity-25">
+                <p class="mb-0" style="white-space: pre-line; line-height: 1.6;">{{ prescription.details }}</p>
+            </div>
+            
+            <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+                <span class="text-secondary small">MedCare Hospital Management System</span>
+                <button onclick="window.print()" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-printer me-1"></i> Print / Save as PDF
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        <div class="glass-panel p-5 text-center">
+            <i class="bi bi-file-earmark-x fs-1 text-secondary mb-3 d-block"></i>
+            <h5>No prescriptions found</h5>
+            <p class="text-secondary">Your doctors will add prescriptions here after your appointments.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

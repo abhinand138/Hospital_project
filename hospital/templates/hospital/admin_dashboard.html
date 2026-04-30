@@ -1,0 +1,45 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold">Welcome Back, Admin! <i class="bi bi-shield-lock-fill text-danger"></i></h2>
+    <p class="text-secondary">Here's the current overview of your hospital's operations with administrator privileges.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-danger border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">Total Patients</h6>
+            <h2 class="display-4 fw-bold mb-0">124</h2>
+            <a href="/patients" class="stretched-link text-decoration-none"></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-info border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">Available Doctors</h6>
+            <h2 class="display-4 fw-bold mb-0">32</h2>
+            <a href="/doctors" class="stretched-link text-decoration-none"></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-warning border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">Total Appointments</h6>
+            <h2 class="display-4 fw-bold mb-0">86</h2>
+            <a href="/appointments" class="stretched-link text-decoration-none"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="glass-panel p-4">
+            <h4 class="fw-bold mb-4">Quick Admin Actions</h4>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="/add_patient" class="btn btn-primary-custom"><i class="bi bi-person-plus-fill me-2"></i>New Patient</a>
+                <a href="/add_doctor" class="btn btn-outline-info"><i class="bi bi-node-plus-fill me-2"></i>Add Doctor</a>
+                <a href="/add_appointment" class="btn btn-outline-warning"><i class="bi bi-calendar-plus-fill me-2"></i>Schedule Appointment</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

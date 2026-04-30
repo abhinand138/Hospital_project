@@ -1,0 +1,66 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold"><i class="bi bi-wallet2 me-2 text-primary"></i>Financial Records</h2>
+    <p class="text-secondary">Track all invoices and payments in Indian Rupees (₹).</p>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="glass-panel p-0 overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-custom table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4 py-3">Bill Date</th>
+                            <th class="py-3">Patient</th>
+                            <th class="py-3">Reference</th>
+                            <th class="py-3">Amount</th>
+                            <th class="py-3">Status</th>
+                            <th class="text-end pe-4 py-3">Invoices</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bill in bills %}
+                        <tr>
+                            <td class="ps-4">{{ bill.date_generated|date:"M d, Y" }}</td>
+                            <td>
+                                <div class="fw-bold text-light">{{ bill.patient.name }}</div>
+                                <div class="small text-secondary">ID: {{ bill.patient.id }}</div>
+                            </td>
+                            <td>
+                                <div class="small text-secondary">Appt ID: {{ bill.appointment.id }}</div>
+                                <div class="small fst-italic text-info">{{ bill.appointment.date }}</div>
+                            </td>
+                            <td class="fw-bold text-success fs-5">
+                                ₹{{ bill.amount }}
+                            </td>
+                            <td>
+                                {% if bill.is_paid %}
+                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill"><i class="bi bi-patch-check me-1"></i> Paid</span>
+                                {% else %}
+                                    <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill"><i class="bi bi-clock-history me-1"></i> Unpaid</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end pe-4">
+                                <button onclick="window.print()" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                                    <i class="bi bi-download me-1"></i> Get PDF
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-secondary">
+                                <i class="bi bi-inbox fs-2 d-block mb-3 opacity-25"></i>
+                                No billing records found.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

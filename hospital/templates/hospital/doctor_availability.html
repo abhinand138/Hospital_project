@@ -1,0 +1,88 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold"><i class="bi bi-calendar-range me-2 text-primary"></i>My Weekly Availability</h2>
+    <p class="text-secondary">Select the days you are available to see patients.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="glass-panel p-4 p-md-5">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label class="form-label fw-bold mb-3"><i class="bi bi-clock me-2"></i>Select Available Days</label>
+                    <div class="row g-3">
+                        {% for day_val, day_name in days_range %}
+                        <div class="col-6 col-md-4">
+                            <div class="form-check custom-checkbox-card">
+                                <input class="form-check-input" type="checkbox" name="days" value="{{ day_val }}" id="day_{{ day_val }}"
+                                    {% for avail in availabilities %}{% if avail.day == day_val %}checked{% endif %}{% endfor %}>
+                                <label class="form-check-label w-100" for="day_{{ day_val }}">
+                                    {{ day_name }}
+                                </label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="alert alert-info bg-opacity-10 py-2 border-0 small">
+                    <i class="bi bi-info-circle me-2"></i> Note: Patients will only be able to book appointments on the days you select here.
+                </div>
+
+                <div class="mt-5 pt-3 border-top border-secondary border-opacity-25 d-flex gap-3">
+                    <button type="submit" class="btn btn-primary-custom px-5 py-2 fw-bold" style="background: var(--accent-color);">
+                        <i class="bi bi-check2-all me-2"></i> Save Availability
+                    </button>
+                    <a href="/doctor_dashboard/" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-lg-5 offset-lg-1">
+        <div class="glass-card p-4 h-100 border-start border-info border-4">
+            <h5 class="fw-bold mb-3">Current Schedule</h5>
+            {% if availabilities %}
+                <ul class="list-group list-group-flush bg-transparent">
+                    {% for avail in availabilities %}
+                    <li class="list-group-item bg-transparent text-light border-secondary border-opacity-25 py-3">
+                        <i class="bi bi-calendar-check me-2 text-success"></i> {{ avail.get_day_display }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-secondary italic">No availability set yet. Please select days to start receiving appointments.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.custom-checkbox-card {
+    padding: 0;
+}
+.custom-checkbox-card .form-check-input {
+    display: none;
+}
+.custom-checkbox-card .form-check-label {
+    display: block;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.custom-checkbox-card .form-check-input:checked + .form-check-label {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+</style>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="/doctors" class="text-decoration-none text-secondary mb-2 d-inline-block"><i class="bi bi-arrow-left me-1"></i> Back to Staff Directory</a>
+    <h2 class="fw-bold"><i class="bi bi-person-badge-fill me-2" style="color: #38bdf8;"></i>Register Staff Member</h2>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 p-md-5 position-relative overflow-hidden">
+            <!-- Decorative Accent -->
+            <div class="position-absolute top-0 end-0 bg-info opacity-10" style="width: 200px; height: 200px; border-radius: 50%; filter: blur(50px); transform: translate(50%, -50%);"></div>
+
+            <form method="POST" action="/add_doctor/">
+                {% csrf_token %}
+                
+                <div class="row g-4 position-relative z-1">
+                    <div class="col-md-12">
+                        <label class="form-label">Doctor's Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-end-0 border-secondary"><i class="bi bi-person text-secondary"></i></span>
+                            <input type="text" class="form-control form-control-custom border-start-0 ps-0" name="name" required placeholder="e.g. Jane Smith">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label class="form-label">Specialization</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-end-0 border-secondary"><i class="bi bi-award text-secondary"></i></span>
+                            <input type="text" class="form-control form-control-custom border-start-0 ps-0" name="specialization" required placeholder="e.g. Cardiology, Pediatrics, General Surgery">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-end-0 border-secondary"><i class="bi bi-telephone text-secondary"></i></span>
+                            <input type="text" class="form-control form-control-custom border-start-0 ps-0" name="phone" required placeholder="e.g. +1 555 123 4567">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-end-0 border-secondary"><i class="bi bi-envelope text-secondary"></i></span>
+                            <input type="email" class="form-control form-control-custom border-start-0 ps-0" name="email" required placeholder="e.g. dr.smith@medcare.com">
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-5 text-center">
+                        <button type="submit" class="btn btn-primary-custom px-5 py-2 w-100 fs-5 rounded-pill" style="background: linear-gradient(to right, #0284c7, #38bdf8);">
+                            <i class="bi bi-cloud-upload border-0 me-2"></i> Onboard Doctor
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

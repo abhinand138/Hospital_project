@@ -1,0 +1,36 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold">Welcome Back, Patient! <i class="bi bi-emoji-smile text-warning"></i></h2>
+    <p class="text-secondary">Your health summary and upcoming appointments.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-success border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">My Records</h6>
+            <h2 class="display-4 fw-bold mb-0">Active</h2>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-warning border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">Upcoming Appointments</h6>
+            <h2 class="display-4 fw-bold mb-0">{{ appointment_count }}</h2>
+            <a href="/appointments" class="stretched-link text-decoration-none"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="glass-panel p-4">
+            <h4 class="fw-bold mb-4">Quick Actions</h4>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="/add_appointment" class="btn btn-primary-custom"><i class="bi bi-calendar-plus me-2"></i>Book Appointment</a>
+                <a href="/doctors" class="btn btn-outline-info"><i class="bi bi-search me-2"></i>Find a Doctor</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

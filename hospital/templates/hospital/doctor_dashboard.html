@@ -1,0 +1,71 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="fw-bold">Welcome Back, Doctor! <i class="bi bi-bandaid text-info"></i></h2>
+    <p class="text-secondary">Your schedule and patient queue for today.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-info border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">My Patients</h6>
+            <h2 class="display-4 fw-bold mb-0">{{ patient_count }}</h2>
+            <a href="/patients" class="stretched-link text-decoration-none"></a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="glass-card p-4 h-100 position-relative overflow-hidden border-start border-warning border-4">
+            <h6 class="text-secondary fw-bold text-uppercase mb-1">My Appointments</h6>
+            <h2 class="display-4 fw-bold mb-0">{{ appointment_count }}</h2>
+            <a href="/appointments" class="stretched-link text-decoration-none"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="glass-panel p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0">Recent Appointments</h4>
+                <a href="/appointments" class="btn btn-sm btn-outline-info">View All</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-custom table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Patient</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in recent_appointments %}
+                        <tr>
+                            <td>{{ app.date }}</td>
+                            <td class="fw-bold">{{ app.patient.name }}</td>
+                            <td>{{ app.reason|truncatechars:30 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-secondary py-3">No recent appointments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="glass-panel p-4">
+            <h4 class="fw-bold mb-4">Quick Actions</h4>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="/appointments" class="btn btn-primary-custom"><i class="bi bi-calendar-check me-2"></i>View Schedule</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

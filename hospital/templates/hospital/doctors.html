@@ -1,0 +1,59 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold"><i class="bi bi-bandaid-fill me-2" style="color: #38bdf8;"></i>Medical Staff</h2>
+        <p class="text-secondary mb-0">View and manage hospital doctors and specialists.</p>
+    </div>
+    {% if request.user.userprofile.role == 'admin' %}
+    <div>
+        <a href="/add_doctor" class="btn btn-primary-custom" style="background: linear-gradient(to right, #0284c7, #38bdf8);"><i class="bi bi-plus-circle me-2"></i>Add Staff Member</a>
+    </div>
+    {% endif %}
+</div>
+
+<div class="glass-panel p-4">
+    <div class="row g-4">
+        {% for doctor in doctors %}
+        <div class="col-md-6 col-lg-4">
+            <div class="glass-card p-4 text-center h-100 position-relative">
+                {% if request.user.userprofile.role == 'admin' %}
+                <div class="position-absolute top-0 end-0 p-3">
+                    <a href="/edit_doctor/{{ doctor.id }}/" class="btn btn-sm btn-outline-primary border-0 me-1" title="Edit"><i class="bi bi-pencil"></i></a>
+                    <a href="/delete_doctor/{{ doctor.id }}/" class="btn btn-sm btn-outline-danger border-0" title="Delete" onclick="return confirm('Are you sure you want to delete this doctor?');"><i class="bi bi-trash"></i></a>
+                </div>
+                {% endif %}
+                <div class="mb-3">
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center bg-info text-white shadow" style="width: 80px; height: 80px; font-size: 2rem;">
+                        {{ doctor.name|make_list|first|upper }}
+                    </div>
+                </div>
+                <h5 class="fw-bold text-light mb-1">Dr. {{ doctor.name }}</h5>
+                <p class="text-info fw-semibold small mb-3">{{ doctor.specialization }}</p>
+                
+                <hr class="border-secondary opacity-25">
+                
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="tel:{{ doctor.phone }}" class="btn btn-sm btn-outline-light rounded-pill px-3" data-bs-toggle="tooltip" title="Call">
+                        <i class="bi bi-telephone-fill"></i>
+                    </a>
+                    <a href="mailto:{{ doctor.email }}" class="btn btn-sm btn-outline-light rounded-pill px-3" data-bs-toggle="tooltip" title="Email">
+                        <i class="bi bi-envelope-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 py-5 text-center">
+            <div class="text-secondary">
+                <i class="bi bi-diagram-3 fs-1 mb-3 d-block"></i>
+                <h5>No doctors registered</h5>
+                <p>Add doctors to the system so they can be assigned appointments.</p>
+                <a href="/add_doctor" class="btn btn-outline-info mt-2 px-4 rounded-pill">Add First Doctor</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

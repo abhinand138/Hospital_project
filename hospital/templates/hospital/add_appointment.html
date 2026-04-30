@@ -1,0 +1,93 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="/appointments" class="text-decoration-none text-secondary mb-2 d-inline-block"><i class="bi bi-arrow-left me-1"></i> Back to Schedule</a>
+    <h2 class="fw-bold"><i class="bi bi-calendar-plus-fill me-2" style="color: var(--accent-color);"></i>Schedule Visit</h2>
+</div>
+
+{% if error %}
+<div class="alert alert-danger bg-opacity-10 border-0 py-3 mb-4 d-flex align-items-center">
+    <i class="bi bi-exclamation-triangle-fill fs-4 me-3 text-danger"></i>
+    <div>
+        <h6 class="mb-0 fw-bold">Booking Error</h6>
+        <span>{{ error }}</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 p-md-5">
+            <form method="POST" action="/add_appointment/">
+                {% csrf_token %}
+                
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label"><i class="bi bi-person me-2"></i>Patient Selection</label>
+                        {% if role == 'patient' %}
+                            {% if current_patient %}
+                                <div class="glass-card p-3 d-flex align-items-center border-start border-primary border-4">
+                                    <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                                    <div>
+                                        <p class="mb-0 text-secondary small">Booking for:</p>
+                                        <h5 class="mb-0 fw-bold">{{ current_patient.name }}</h5>
+                                    </div>
+                                    <input type="hidden" name="patient" value="{{ current_patient.id }}">
+                                </div>
+                            {% else %}
+                                <div class="alert alert-danger mb-0">
+                                    <i class="bi bi-exclamation-octagon me-2"></i> Patient profile missing. Please contact admin.
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <select class="form-select form-control-custom" name="patient" required>
+                                <option value="" disabled selected>-- Choose Patient --</option>
+                                {% for patient in patients %}
+                                    <option value="{{ patient.id }}">{{ patient.name }} (ID: {{ patient.id }})</option>
+                                {% empty %}
+                                    <option value="" disabled>No patients available</option>
+                                {% endfor %}
+                            </select>
+                            {% if not patients %}
+                                <small class="text-danger mt-1 d-block"><i class="bi bi-exclamation-triangle"></i> Please add a patient first.</small>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label class="form-label"><i class="bi bi-bandaid me-2"></i>Select Doctor</label>
+                        <select class="form-select form-control-custom" name="doctor" required>
+                            <option value="" disabled selected>-- Choose Doctor --</option>
+                            {% for doctor in doctors %}
+                                <option value="{{ doctor.id }}">Dr. {{ doctor.name }} - {{ doctor.specialization }}</option>
+                            {% empty %}
+                                <option value="" disabled>No doctors available</option>
+                            {% endfor %}
+                        </select>
+                        {% if not doctors %}
+                            <small class="text-danger mt-1 d-block"><i class="bi bi-exclamation-triangle"></i> Please add a doctor first.</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label"><i class="bi bi-calendar-date me-2"></i>Appointment Date</label>
+                        <input type="date" class="form-control form-control-custom" name="date" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label"><i class="bi bi-card-text me-2"></i>Reason for Visit</label>
+                        <textarea class="form-control form-control-custom" name="reason" rows="4" required placeholder="Describe symptoms or reason for appointment..."></textarea>
+                    </div>
+
+                    <div class="col-12 mt-4 pt-4 border-top border-secondary border-opacity-25 text-end">
+                        <button type="submit" class="btn btn-primary-custom px-5 py-2 fw-bold" style="background: linear-gradient(to right, #e11d48, #f43f5e);" {% if not patients or not doctors %}disabled{% endif %}>
+                            <i class="bi bi-calendar-check me-2"></i> Book Appointment
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

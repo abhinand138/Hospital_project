@@ -1,0 +1,32 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="/appointments" class="text-decoration-none text-secondary mb-2 d-inline-block"><i class="bi bi-arrow-left me-1"></i> Back to Schedule</a>
+    <h2 class="fw-bold"><i class="bi bi-file-earmark-medical me-2 text-primary"></i>Write Prescription</h2>
+    <p class="text-secondary">Instructions for <strong>{{ appointment.patient.name }}</strong> regarding their visit on {{ appointment.date }}.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 p-md-5">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label class="form-label fw-bold"><i class="bi bi-pencil-square me-2"></i>Perscription Details</label>
+                    <textarea class="form-control form-control-custom" name="details" rows="10" required 
+                        placeholder="Enter medicines, dosage, and other health instructions here..."></textarea>
+                </div>
+
+                <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 text-end">
+                    <button type="submit" class="btn btn-primary-custom px-5 py-2 fw-bold" style="background: linear-gradient(to right, #2563eb, #3b82f6);">
+                        <i class="bi bi-save me-2"></i> Save Prescription
+                    </button>
+                    <a href="/appointments" class="btn btn-outline-secondary ms-2 px-4 py-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

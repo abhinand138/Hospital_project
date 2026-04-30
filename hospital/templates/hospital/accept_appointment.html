@@ -1,0 +1,53 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="/appointments" class="text-decoration-none text-secondary mb-2 d-inline-block"><i class="bi bi-arrow-left me-1"></i> Back to Schedule</a>
+    <h2 class="fw-bold"><i class="bi bi-check2-circle me-2 text-success"></i>Accept Appointment</h2>
+    <p class="text-secondary">Set a time for the visit with <strong>{{ appointment.patient.name }}</strong>.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="glass-panel p-4 p-md-5">
+            <div class="mb-4 p-3 rounded bg-secondary bg-opacity-25">
+                <p class="mb-1 text-secondary small text-uppercase fw-bold">Requested Date</p>
+                <h5 class="mb-0 fw-bold"><i class="bi bi-calendar-event me-2"></i>{{ appointment.date }}</h5>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label class="form-label fw-bold"><i class="bi bi-clock me-2"></i>Select Appointment Time</label>
+                    <input type="time" class="form-control form-control-custom" name="time" required>
+                    <small class="text-secondary mt-2 d-block">Choose the exact time for this patient's visit.</small>
+                </div>
+
+                <div class="mt-5 pt-3 border-top border-secondary border-opacity-25 d-flex gap-3">
+                    <button type="submit" class="btn btn-success px-5 py-2 fw-bold">
+                        <i class="bi bi-calendar-check me-2"></i> Confirm Appointment
+                    </button>
+                    <a href="/appointments" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-lg-5 offset-lg-1">
+        <div class="glass-card p-4 border-start border-info border-4 h-100">
+            <h5 class="fw-bold mb-3">Appointment Details</h5>
+            <ul class="list-unstyled mb-0">
+                <li class="mb-3">
+                    <span class="text-secondary small d-block">Patient Name</span>
+                    <span class="fw-bold">{{ appointment.patient.name }} (Age: {{ appointment.patient.age }})</span>
+                </li>
+                <li class="mb-3">
+                    <span class="text-secondary small d-block">Reason for Visit</span>
+                    <span class="fst-italic">"{{ appointment.reason }}"</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
