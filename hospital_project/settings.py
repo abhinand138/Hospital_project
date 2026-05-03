@@ -98,6 +98,13 @@ DATABASES = {
 db_from_env = dj_database_url.config(conn_max_age=600)
 if db_from_env:
     DATABASES['default'].update(db_from_env)
+    # TiDB Cloud Serverless requires SSL, so we ensure the SSL dictionary is present in OPTIONS
+    if 'OPTIONS' not in DATABASES['default']:
+        DATABASES['default']['OPTIONS'] = {}
+    DATABASES['default']['OPTIONS']['ssl'] = {
+        'ssl_verify_cert': True,
+        'ssl_verify_identity': True
+    }
 
 
 # Password validation

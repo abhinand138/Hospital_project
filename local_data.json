@@ -1,0 +1,476 @@
+[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$wXQAIPZxoGJRNKSAOJg6c3$vPW+xkOgxOaN3lLVNbUyDlm4tZB6aEPByVsHjjsIM9M=",
+        "last_login": "2026-05-01T17:54:57.851Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-04-07T06:29:54.876Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$XkewLToaeGw0rWYWRxqZdd$r1YqLqtQNenFLGv7bNuOx3JuSue0YuQZQFtDBvM69n4=",
+        "last_login": "2026-04-19T17:04:10.045Z",
+        "is_superuser": false,
+        "username": "arun",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-04-08T05:08:07.360Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$pwtG7MiYnvsP9DR6SEFb5i$5MGfiJ1jPqILhA6v+XqfwoeW0+laMWUI2FaK6HvDLkg=",
+        "last_login": "2026-05-01T17:22:22.640Z",
+        "is_superuser": false,
+        "username": "manoj",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-04-08T05:08:51.599Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$0s4Oug2eQa8909A0xZDjhI$JU6B9vuJnez58tE+eK9FTCnryfAvl9ZLlry0lcOLSOM=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "nithya5526",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-04-09T18:03:58.447Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$pVzGqkC5CGkyhdFJKOb2BO$/eEOxme6gMdYioZCSi8KIKb59B7f8ePFH6gSAsN0uJw=",
+        "last_login": "2026-04-30T18:00:33.451Z",
+        "is_superuser": false,
+        "username": "Akhil",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-04-19T15:20:09.006Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$i2VLpx5KUy6fC6RCZKlayd$lxmc/VzS3eVNP1TD9RDqp8EnHCoTapWGufMqEhGdpMU=",
+        "last_login": "2026-05-01T17:55:03.911Z",
+        "is_superuser": false,
+        "username": "aravind",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-04-30T18:01:57.596Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$260000$L0vZJcnAQ7zFS4RrfcW6IN$XVowwztnlAaJmHUl0VsJoPuXyM17uk6r+XtVCagFDDw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "hema6677",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-04-30T18:14:55.594Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "hajkumn8g7owjpkh8h8yg15xnnahycb0",
+    "fields": {
+        "session_data": ".eJxVjM0OwiAQhN-FsyFdFrB49O4zkF1-pGogKe3J-O62SQ96nPm-mbfwtC7Frz3NforiIqw4_XZM4ZnqDuKD6r3J0OoyTyx3RR60y1uL6XU93L-DQr1sa61yUsGZzNGBThAYFPEWEYAyOESdEfM4WoNDyEDDGS0rnTTZaJQWny_yCDfA:1wIs4t:83vybUAS1rRnecFALZqwF2z5cArRK9WpY7yxtKMoKXA",
+        "expire_date": "2026-05-15T17:55:03.926Z"
+    }
+},
+{
+    "model": "hospital.patient",
+    "pk": 1,
+    "fields": {
+        "user": null,
+        "name": "Arun",
+        "profile_pic": "",
+        "age": 22,
+        "gender": "male",
+        "phone": "345678902",
+        "address": "street line"
+    }
+},
+{
+    "model": "hospital.patient",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "Akhil"
+        ],
+        "name": "AkhilKumar KP",
+        "profile_pic": "",
+        "age": 26,
+        "gender": "Male",
+        "phone": "2344564321",
+        "address": "manjulanagar,kottayam"
+    }
+},
+{
+    "model": "hospital.patient",
+    "pk": 4,
+    "fields": {
+        "user": [
+            "arun"
+        ],
+        "name": "Arun",
+        "profile_pic": "",
+        "age": 25,
+        "gender": "Male",
+        "phone": "0000000000",
+        "address": "Placeholder Address"
+    }
+},
+{
+    "model": "hospital.patient",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "aravind"
+        ],
+        "name": "Aravind S",
+        "profile_pic": "",
+        "age": 22,
+        "gender": "Male",
+        "phone": "245567431",
+        "address": "manjadiyil"
+    }
+},
+{
+    "model": "hospital.doctor",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "manoj"
+        ],
+        "name": "Dr Manoj",
+        "profile_pic": "",
+        "specialization": "Senior Surgeon",
+        "phone": "9887345621",
+        "email": "manoj@gmail.com"
+    }
+},
+{
+    "model": "hospital.doctor",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "nithya5526"
+        ],
+        "name": "Dr Nithya",
+        "profile_pic": "",
+        "specialization": "Pediatrics",
+        "phone": "+918776345526",
+        "email": "nithya@gmail.com"
+    }
+},
+{
+    "model": "hospital.doctor",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "hema6677"
+        ],
+        "name": "Dr Hema",
+        "profile_pic": "",
+        "specialization": "Cardiology",
+        "phone": "3344556677",
+        "email": "hema@gmail.com"
+    }
+},
+{
+    "model": "hospital.appointment",
+    "pk": 1,
+    "fields": {
+        "patient": 1,
+        "doctor": 1,
+        "date": "2026-04-08",
+        "appointment_time": null,
+        "status": "pending",
+        "reason": "fever"
+    }
+},
+{
+    "model": "hospital.appointment",
+    "pk": 5,
+    "fields": {
+        "patient": 3,
+        "doctor": 2,
+        "date": "2025-02-10",
+        "appointment_time": null,
+        "status": "pending",
+        "reason": "child has severe cold and fever"
+    }
+},
+{
+    "model": "hospital.appointment",
+    "pk": 6,
+    "fields": {
+        "patient": 3,
+        "doctor": 1,
+        "date": "2026-02-20",
+        "appointment_time": "10:30:00",
+        "status": "completed",
+        "reason": "surgery management"
+    }
+},
+{
+    "model": "hospital.appointment",
+    "pk": 7,
+    "fields": {
+        "patient": 5,
+        "doctor": 1,
+        "date": "2026-10-05",
+        "appointment_time": "15:30:00",
+        "status": "completed",
+        "reason": "cold"
+    }
+},
+{
+    "model": "hospital.prescription",
+    "pk": 1,
+    "fields": {
+        "appointment": 6,
+        "patient": 3,
+        "doctor": 1,
+        "details": "take care! drink boiled water",
+        "date_created": "2026-04-19T16:11:06.654Z"
+    }
+},
+{
+    "model": "hospital.prescription",
+    "pk": 2,
+    "fields": {
+        "appointment": 7,
+        "patient": 5,
+        "doctor": 1,
+        "details": "eat dolo",
+        "date_created": "2026-04-30T18:06:36.452Z"
+    }
+},
+{
+    "model": "hospital.medicalrecord",
+    "pk": 1,
+    "fields": {
+        "patient": 5,
+        "description": "test report",
+        "file": "medical_records/ABHINAND_M_A.pdf",
+        "date_uploaded": "2026-04-30T18:07:38.873Z"
+    }
+},
+{
+    "model": "hospital.doctoravailability",
+    "pk": 4,
+    "fields": {
+        "doctor": 1,
+        "day": 0,
+        "start_time": "09:00:00",
+        "end_time": "17:00:00"
+    }
+},
+{
+    "model": "hospital.doctoravailability",
+    "pk": 5,
+    "fields": {
+        "doctor": 1,
+        "day": 1,
+        "start_time": "09:00:00",
+        "end_time": "17:00:00"
+    }
+},
+{
+    "model": "hospital.doctoravailability",
+    "pk": 6,
+    "fields": {
+        "doctor": 1,
+        "day": 4,
+        "start_time": "09:00:00",
+        "end_time": "17:00:00"
+    }
+},
+{
+    "model": "hospital.notification",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "manoj"
+        ],
+        "message": "New appointment request from Aravind S for 2026-10-05.",
+        "is_read": true,
+        "created_at": "2026-04-30T18:05:16.899Z"
+    }
+},
+{
+    "model": "hospital.notification",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "aravind"
+        ],
+        "message": "Your appointment with Dr. Dr Manoj on 2026-10-05 has been ACCEPTED for 15:30.",
+        "is_read": true,
+        "created_at": "2026-04-30T18:06:15.440Z"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "admin"
+        ],
+        "role": "admin"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "arun"
+        ],
+        "role": "patient"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "manoj"
+        ],
+        "role": "doctor"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "nithya5526"
+        ],
+        "role": "doctor"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 6,
+    "fields": {
+        "user": [
+            "Akhil"
+        ],
+        "role": "patient"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "aravind"
+        ],
+        "role": "patient"
+    }
+},
+{
+    "model": "hospital.userprofile",
+    "pk": 8,
+    "fields": {
+        "user": [
+            "hema6677"
+        ],
+        "role": "doctor"
+    }
+},
+{
+    "model": "hospital.medicine",
+    "pk": 1,
+    "fields": {
+        "name": "Parcetamol",
+        "description": "",
+        "price": "20.00",
+        "stock": 100,
+        "is_available": true
+    }
+},
+{
+    "model": "hospital.bill",
+    "pk": 1,
+    "fields": {
+        "patient": 3,
+        "appointment": 6,
+        "amount": "2000.00",
+        "is_paid": false,
+        "date_generated": "2026-04-19T16:37:12.217Z"
+    }
+},
+{
+    "model": "hospital.bill",
+    "pk": 2,
+    "fields": {
+        "patient": 5,
+        "appointment": 7,
+        "amount": "1000.00",
+        "is_paid": false,
+        "date_generated": "2026-05-01T17:21:32.021Z"
+    }
+},
+{
+    "model": "hospital.bed",
+    "pk": 1,
+    "fields": {
+        "number": "101",
+        "is_occupied": false,
+        "patient": null,
+        "notes": ""
+    }
+}
+]
