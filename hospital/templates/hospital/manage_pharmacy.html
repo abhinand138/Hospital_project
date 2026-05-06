@@ -6,9 +6,14 @@
         <h2 class="fw-bold"><i class="bi bi-capsule me-2 text-warning"></i>Pharmacy Inventory</h2>
         <p class="text-secondary">Manage medicine stock and pricing in Indian Rupees (₹).</p>
     </div>
-    <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addMedicineModal">
-        <i class="bi bi-plus-lg me-2"></i> Add New Medicine
-    </button>
+    <div class="d-flex gap-2">
+        <a href="/export_pharmacy/" class="btn btn-outline-success">
+            <i class="bi bi-file-earmark-excel me-2"></i> Export CSV
+        </a>
+        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#addMedicineModal">
+            <i class="bi bi-plus-lg me-2"></i> Add New Medicine
+        </button>
+    </div>
 </div>
 
 <div class="glass-panel p-0 overflow-hidden">

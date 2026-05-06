@@ -1,6 +1,9 @@
+import csv
+from django.http import HttpResponse
+from django.db.models import Avg, Count
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Patient, Doctor, Appointment, UserProfile, Prescription, MedicalRecord, DoctorAvailability, Notification, Bill, Bed, Medicine
+from .models import Patient, Doctor, Appointment, UserProfile, Prescription, MedicalRecord, DoctorAvailability, Notification, Bill, Bed, Medicine, DoctorReview
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
@@ -26,7 +29,10 @@ def patients(request):
 
 @login_required(login_url='/login/')
 def doctors(request):
-    data = Doctor.objects.all()
+    data = Doctor.objects.annotate(
+        avg_rating=Avg('doctorreview__rating'),
+        review_count=Count('doctorreview')
+    )
     return render(request, 'hospital/doctors.html', {'doctors': data})
 
 @login_required(login_url='/login/')
@@ -578,3 +584,67 @@ def delete_bed(request, id):
     except Bed.DoesNotExist:
         pass
     return redirect('/manage_beds/')
+
+@login_required(login_url='/login/')
+def export_patients_csv(request):
+    if not hasattr(request.user, 'userprofile') or request.user.userprofile.role != 'admin':
+        return redirect('/')
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="patients.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Name', 'Age', 'Gender', 'Phone', 'Address'])
+    for patient in Patient.objects.all():
+        writer.writerow([patient.id, patient.name, patient.age, patient.gender, patient.phone, patient.address])
+    return response
+
+@login_required(login_url='/login/')
+def export_bills_csv(request):
+    if not hasattr(request.user, 'userprofile') or request.user.userprofile.role != 'admin':
+        return redirect('/')
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="bills.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Patient', 'Doctor', 'Amount', 'Date Generated', 'Status'])
+    for bill in Bill.objects.all():
+        status = 'Paid' if bill.is_paid else 'Unpaid'
+        writer.writerow([bill.id, bill.patient.name, bill.appointment.doctor.name, bill.amount, bill.date_generated.strftime("%Y-%m-%d"), status])
+    return response
+
+@login_required(login_url='/login/')
+def export_pharmacy_csv(request):
+    if not hasattr(request.user, 'userprofile') or request.user.userprofile.role != 'admin':
+        return redirect('/')
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="pharmacy_inventory.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Medicine Name', 'Price', 'Stock', 'Availability'])
+    for med in Medicine.objects.all():
+        avail = 'Available' if med.is_available else 'Unavailable'
+        writer.writerow([med.id, med.name, med.price, med.stock, avail])
+    return response
+
+@login_required(login_url='/login/')
+def rate_doctor(request, appointment_id):
+    if not hasattr(request.user, 'userprofile') or request.user.userprofile.role != 'patient':
+        return redirect('/')
+    
+    appointment = Appointment.objects.get(id=appointment_id)
+    if appointment.patient.user != request.user or appointment.status != 'completed':
+        return redirect('/appointments')
+        
+    if hasattr(appointment, 'doctorreview'):
+        return redirect('/appointments') # Already reviewed
+        
+    if request.method == "POST":
+        rating = int(request.POST['rating'])
+        comment = request.POST['comment']
+        DoctorReview.objects.create(
+            appointment=appointment,
+            patient=appointment.patient,
+            doctor=appointment.doctor,
+            rating=rating,
+            comment=comment
+        )
+        return redirect('/appointments')
+        
+    return render(request, 'hospital/rate_doctor.html', {'appointment': appointment})

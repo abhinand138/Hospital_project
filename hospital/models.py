@@ -143,3 +143,15 @@ class Bed(models.Model):
 
     def __str__(self):
         return f"Bed {self.number} - {'Occupied' if self.is_occupied else 'Available'}"
+
+
+class DoctorReview(models.Model):
+    appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.rating} Stars for {self.doctor.name} by {self.patient.name}"

@@ -1,0 +1,60 @@
+{% extends 'hospital/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="glass-panel p-5 mt-4 text-center">
+            
+            <div class="mb-4">
+                <i class="bi bi-star-half text-warning mb-3 d-block" style="font-size: 3rem;"></i>
+                <h3 class="fw-bold text-light mb-2">Rate Your Experience</h3>
+                <p class="text-secondary">How was your appointment with <strong>Dr. {{ appointment.doctor.name }}</strong> on {{ appointment.date }}?</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label class="form-label text-light fw-bold mb-3 d-block">Select Rating</label>
+                    <div class="rating-group d-flex justify-content-center flex-row-reverse gap-2">
+                        <!-- We use flex-row-reverse so we can use CSS sibling selectors for stars -->
+                        <input type="radio" id="star5" name="rating" value="5" class="d-none" required>
+                        <label for="star5" class="star-label m-0 cursor-pointer text-secondary fs-2"><i class="bi bi-star-fill"></i></label>
+                        
+                        <input type="radio" id="star4" name="rating" value="4" class="d-none">
+                        <label for="star4" class="star-label m-0 cursor-pointer text-secondary fs-2"><i class="bi bi-star-fill"></i></label>
+                        
+                        <input type="radio" id="star3" name="rating" value="3" class="d-none">
+                        <label for="star3" class="star-label m-0 cursor-pointer text-secondary fs-2"><i class="bi bi-star-fill"></i></label>
+                        
+                        <input type="radio" id="star2" name="rating" value="2" class="d-none">
+                        <label for="star2" class="star-label m-0 cursor-pointer text-secondary fs-2"><i class="bi bi-star-fill"></i></label>
+                        
+                        <input type="radio" id="star1" name="rating" value="1" class="d-none">
+                        <label for="star1" class="star-label m-0 cursor-pointer text-secondary fs-2"><i class="bi bi-star-fill"></i></label>
+                    </div>
+                    <style>
+                        .star-label { transition: color 0.2s; cursor: pointer; }
+                        .rating-group input:checked ~ label,
+                        .rating-group label:hover,
+                        .rating-group label:hover ~ label {
+                            color: #ffc107 !important;
+                        }
+                    </style>
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label class="form-label fw-bold text-light">Leave a Comment (Optional)</label>
+                    <textarea name="comment" class="form-control form-control-custom" rows="4" placeholder="Share details of your experience..."></textarea>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="/appointments" class="btn btn-outline-secondary px-4 me-md-2">Cancel</a>
+                    <button type="submit" class="btn btn-warning fw-bold text-dark px-5">Submit Review</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

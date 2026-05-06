@@ -30,7 +30,15 @@
                     </div>
                 </div>
                 <h5 class="fw-bold text-light mb-1">Dr. {{ doctor.name }}</h5>
-                <p class="text-info fw-semibold small mb-3">{{ doctor.specialization }}</p>
+                <p class="text-info fw-semibold small mb-2">{{ doctor.specialization }}</p>
+                
+                {% if doctor.review_count > 0 %}
+                <div class="text-warning mb-3 fw-bold" style="font-size: 0.9rem;">
+                    <i class="bi bi-star-fill"></i> {{ doctor.avg_rating|floatformat:1 }} <span class="text-secondary fw-normal">({{ doctor.review_count }})</span>
+                </div>
+                {% else %}
+                <div class="text-secondary small mb-3 fst-italic">No ratings yet</div>
+                {% endif %}
                 
                 <hr class="border-secondary opacity-25">
                 
