@@ -151,6 +151,18 @@ def add_appointment(request):
         # Phase 2: Availability Validation (Check Day)
         import datetime
         booking_date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+        
+        # Check for past dates
+        if booking_date < datetime.date.today():
+            error = "You cannot book an appointment in the past. Please choose a future date."
+            return render(request, 'hospital/add_appointment.html', {
+                'patients': patients,
+                'doctors': doctors,
+                'current_patient': current_patient,
+                'role': role,
+                'error': error
+            })
+            
         day_of_week = booking_date.weekday() # 0 is Monday
         
         is_available = DoctorAvailability.objects.filter(doctor=selected_doctor, day=day_of_week).exists()
