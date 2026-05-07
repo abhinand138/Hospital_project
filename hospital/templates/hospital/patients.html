@@ -67,8 +67,10 @@
                         <div class="text-secondary">
                             <i class="bi bi-inbox fs-1 mb-3 d-block"></i>
                             <h5>No patients found</h5>
-                            <p>Get started by adding your first patient.</p>
+                            <p>There are no patients currently registered.</p>
+                            {% if request.user.userprofile.role == 'admin' %}
                             <a href="/add_patient" class="btn btn-primary-custom btn-sm mt-2">Add Patient</a>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
