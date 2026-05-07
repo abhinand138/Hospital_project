@@ -40,6 +40,17 @@
                 <div class="text-secondary small mb-3 fst-italic">No ratings yet</div>
                 {% endif %}
                 
+                <div class="mb-3 mt-2">
+                    <span class="d-block text-secondary small fw-bold mb-1">Available On:</span>
+                    <div class="d-flex flex-wrap justify-content-center gap-1">
+                        {% for avail in doctor.doctoravailability_set.all %}
+                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25" title="{{ avail.start_time|time:'H:i' }} - {{ avail.end_time|time:'H:i' }}">{{ avail.get_day_display|slice:":3" }}</span>
+                        {% empty %}
+                        <span class="text-secondary small fst-italic">Not scheduled</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                
                 <hr class="border-secondary opacity-25">
                 
                 <div class="d-flex justify-content-center gap-3">
