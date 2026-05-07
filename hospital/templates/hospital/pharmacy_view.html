@@ -29,6 +29,11 @@
                                 <span class="text-light">{{ med.stock }} Units left</span>
                             </div>
                         </div>
+                        <div class="mt-4 text-center">
+                            <a href="/buy_medicine/{{ med.id }}/" class="btn btn-warning w-100 fw-bold text-dark" onclick="return confirm('Confirm purchase of 1x {{ med.name }} for ₹{{ med.price }}?');">
+                                <i class="bi bi-cart-check-fill me-2"></i>Buy Now
+                            </a>
+                        </div>
                     </div>
                 </div>
                 {% empty %}

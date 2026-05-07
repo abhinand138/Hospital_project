@@ -59,4 +59,5 @@ urlpatterns = [
     path('export_bills/', views.export_bills_csv),
     path('export_pharmacy/', views.export_pharmacy_csv),
     path('rate_doctor/<int:appointment_id>/', views.rate_doctor),
+    path('buy_medicine/<int:id>/', views.buy_medicine),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

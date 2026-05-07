@@ -587,6 +587,27 @@ def manage_pharmacy(request):
 def pharmacy_view(request):
     medicines = Medicine.objects.filter(is_available=True, stock__gt=0).order_by('name')
     return render(request, 'hospital/pharmacy_view.html', {'medicines': medicines})
+
+@login_required(login_url='/login/')
+def buy_medicine(request, id):
+    if not hasattr(request.user, 'userprofile') or request.user.userprofile.role != 'patient':
+        return redirect('/')
+    
+    try:
+        med = Medicine.objects.get(id=id)
+        if med.stock > 0 and med.is_available:
+            med.stock -= 1
+            med.save()
+            
+            # Send Notification to Patient
+            Notification.objects.create(
+                user=request.user,
+                message=f"Purchase successful! You bought 1x {med.name} for ₹{med.price}. Please collect it from the pharmacy counter."
+            )
+    except Medicine.DoesNotExist:
+        pass
+        
+    return redirect('/pharmacy_view/')
 @login_required(login_url='/login/')
 def delete_bed(request, id):
     if not hasattr(request.user, 'userprofile') or request.user.userprofile.role != 'admin':
