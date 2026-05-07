@@ -6,9 +6,11 @@
         <h2 class="fw-bold"><i class="bi bi-calendar2-check-fill me-2" style="color: var(--accent-color);"></i>Appointments schedule</h2>
         <p class="text-secondary mb-0">Overview of all scheduled hospital visits.</p>
     </div>
+    {% if request.user.userprofile.role != 'doctor' %}
     <div>
         <a href="/add_appointment" class="btn btn-primary-custom" style="background: linear-gradient(to right, #e11d48, #f43f5e);"><i class="bi bi-calendar-plus me-2"></i>New Appointment</a>
     </div>
+    {% endif %}
 </div>
 
 <div class="glass-panel p-4">
